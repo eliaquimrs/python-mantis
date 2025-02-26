@@ -1,0 +1,31 @@
+name: Publish PyPI.org
+  
+on:
+  release:
+    types: [published]
+jobs:
+  pypi:
+    permissions:
+      # IMPORTANT: this permission is mandatory for trusted publishing
+      # See https://docs.pypi.org/trusted-publishers/using-a-publisher/
+      id-token: write
+    environment: PYPI
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Extract tag name
+        id: tag
+        run: echo ::set-output name=TAG_NAME::$(echo $GITHUB_REF | cut -d / -f 3)
+      - name: Update version in setup.py
+        run: >-
+          sed -i "s/{{VERSION_PLACEHOLDER}}/${{ steps.tag.outputs.TAG_NAME }}/g" pyproject.toml
+      - name: Update version in __version.py script
+        run: >-
+          sed -i "s/{{VERSION_PLACEHOLDER}}/${{ steps.tag.outputs.TAG_NAME }}/g" mantisbt/__version.py
+      - run: python3 -m pip install --upgrade build && python3 -m build
+      - name: Publish package
+        uses: pypa/gh-action-pypi-publish@release/v1

@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=61.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "python-mantisbt"
+version = "{{VERSION_PLACEHOLDER}}"
+description="A python interface to manage everything about Mantis Bug Tracker"
+readme = "README.rst"
+authors = [
+    {name = "Eliaquim Souza", email= "eliaquim.rsv@gmail.com"},
+    {name = "Rafael Silva", email= "rafael.alexandre.tm@gmail.com"},
+    {name = "Elton Pescador", email= "eltonpescadorvieira@gmail.com"}
+]
+maintainers = [
+    {name = "Eliaquim Souza", email= "eliaquim.rsv@gmail.com"},
+    {name = "Rafael Silva", email= "rafael.alexandre.tm@gmail.com"},
+    {name = "Elton Pescador", email= "eltonpescadorvieira@gmail.com"}
+]
+requires-python = ">=3.9.0"
+dependencies = []
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Environment :: Console",
+    "Intended Audience :: System Administrators",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Natural Language :: English",
+    "Operating System :: Unix",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+keywords = ["api", "client", "mantisbt", "mantis-bt", "mantis-bug-tracker", 
+    "mantis-bugtracker", "python", "python-mantisbt", "python-mantis"]
+license = {text = "GPL-3.0"}
+
+[project.scripts]
+gitlab = "mantisbt.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/eliaquimrs/python-mantisbt"
+Changelog = "https://github.com/eliaquimrs/python-mantisbt/blob/master/CHANGELOG.md"
+Documentation = "https://github.com/eliaquimrs/python-mantisbt?tab=readme-ov-file#readme"
+Source = "https://github.com/eliaquimrs/python-mantisbt"
+
+[tool.setuptools.packages.find]
+exclude = ["docs*", "tests*"]
