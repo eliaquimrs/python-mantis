@@ -26,7 +26,7 @@ jobs:
           sed -i "s/{{VERSION_PLACEHOLDER}}/${{ steps.tag.outputs.TAG_NAME }}/g" pyproject.toml
       - name: Update version in __version.py script
         run: >-
-          sed -i "s/{{VERSION_PLACEHOLDER}}/${{ steps.tag.outputs.TAG_NAME }}/g" mantisbt/__version.py
+          sed -i "s/{{VERSION_PLACEHOLDER}}/${{ steps.tag.outputs.TAG_NAME }}/g" mantis/__version.py
       - run: python3 -m pip install --upgrade build && python3 -m build
       - name: Publish package
         uses: pypa/gh-action-pypi-publish@release/v1

@@ -40,9 +40,6 @@ keywords = ["api", "client", "mantisbt", "mantis-bt", "mantis-bug-tracker",
     "mantis-bugtracker", "python", "python-mantisbt", "python-mantis"]
 license = {text = "GPL-3.0"}
 
-[project.scripts]
-gitlab = "mantisbt.cli:main"
-
 [project.urls]
 Homepage = "https://github.com/eliaquimrs/python-mantisbt"
 Changelog = "https://github.com/eliaquimrs/python-mantisbt/blob/master/CHANGELOG.md"
