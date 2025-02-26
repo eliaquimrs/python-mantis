@@ -1,6 +1,6 @@
-import mantisbt
+import mantis
 
-from mantisbt.__version import (
+from mantis.__version import (
     __author__,
     __copyright__,
     __email__,
@@ -8,8 +8,8 @@ from mantisbt.__version import (
     __title__,
     __version__
 )
-from mantisbt.client import MantisBT
-from mantisbt.exceptions import *
+from mantis.client import MantisBT
+from mantis.exceptions import *
 
 __all__ = [
     '__author__',
@@ -20,4 +20,4 @@ __all__ = [
     '__version__',
     'MantisBT'
 ]
-__all__.extend(mantisbt.exceptions.__all__)
+__all__.extend(mantis.exceptions.__all__)
