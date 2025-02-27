@@ -37,14 +37,15 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
 ]
 keywords = ["api", "client", "mantisbt", "mantis-bt", "mantis-bug-tracker", 
-    "mantis-bugtracker", "python", "python-mantisbt", "python-mantis"]
+    "mantis-bugtracker", "python", "python-mantisbt", "python-mantis", "mantis",
+    "bug-tracker"]
 license = {text = "GPL-3.0"}
 
 [project.urls]
-Homepage = "https://github.com/eliaquimrs/python-mantisbt"
-Changelog = "https://github.com/eliaquimrs/python-mantisbt/blob/master/CHANGELOG.md"
-Documentation = "https://github.com/eliaquimrs/python-mantisbt?tab=readme-ov-file#readme"
-Source = "https://github.com/eliaquimrs/python-mantisbt"
+Homepage = "https://github.com/eliaquimrs/python-mantis"
+Changelog = "https://github.com/eliaquimrs/python-mantis/blob/master/CHANGELOG.md"
+Documentation = "https://github.com/eliaquimrs/python-mantis?tab=readme-ov-file#readme"
+Source = "https://github.com/eliaquimrs/python-mantis"
 
 [tool.setuptools.packages.find]
 exclude = ["docs*", "tests*"]
