@@ -6,7 +6,7 @@ from mantis.mixins import ManagerBaseMixins
 
 
 class ProjectObj(ObjectBase):
-    _repr_attrs = ('id', 'name')
+    _repr_attrs = ('name', 'id', 'enabled')
 
 
 class ProjectManager(

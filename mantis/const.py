@@ -13,6 +13,10 @@ class HTTP(BaseStrEnum):
     METHOD_PATCH = 'PATCH'
 
 
+MIN_HTTP_SUCCESS_STATUS_CODE = 200
+MAX_HTTP_SUCCESS_STATUS_CODE = 299
+
+
 class REST(BaseStrEnum):
     HEADER_CONTENT_TYPE_JSON = 'application/json'
     HEADER_ACCEPT = '*/*'

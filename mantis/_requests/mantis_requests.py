@@ -1,7 +1,7 @@
 from copy import deepcopy
+from json import dumps as json_dumps
 from sys import version_info
-from typing import Union
-from urllib.parse import urljoin
+from typing import Union, Any
 
 import requests
 
@@ -9,7 +9,12 @@ from mantis import const, __title__
 
 
 class MantisRequests:
-    def __init__(self, base_url, auth, timeout):
+    def __init__(
+        self,
+        base_url: str,
+        auth: str,
+        timeout: Union[float, int]
+    ):
         self.base_url = base_url
         self.auth = auth
         self.timeout = timeout
@@ -39,9 +44,15 @@ class MantisRequests:
         return headers
 
     def _prepare_url(self, sufix_url_path: str):
-        print(self.base_url, sufix_url_path)
+
+        if sufix_url_path.startswith('/'):
+            sufix_url_path = sufix_url_path[1:]
+
         return f'{self.base_url}/{sufix_url_path}'
-        return urljoin(self.base_url, sufix_url_path)
+
+    def _prepare_data(self, data: dict[Any]):
+
+        return json_dumps(data)
 
     def _get_header_for_request(self, extra_headers: Union[dict, None] = None):
         headers = deepcopy(self.http_header)
@@ -61,9 +72,13 @@ class MantisRequests:
             **kwargs
     ):
         url = self._prepare_url(sufix_url_path)
-        print(url)
-
         headers = self._get_header_for_request(extra_headers)
+
+        if data:
+            if not 'content-type' in map(str.lower, headers.keys()):
+                headers['Content-Type'] = const.REST.HEADER_CONTENT_TYPE_JSON
+
+            data = self._prepare_data(data)
 
         response = self._session.request(
             method=method,
@@ -74,6 +89,9 @@ class MantisRequests:
             timeout=self.timeout,
             **kwargs
         )
+        if response.status_code >= const.MIN_HTTP_SUCCESS_STATUS_CODE and \
+                response.status_code <= const.MAX_HTTP_SUCCESS_STATUS_CODE:
+            return response.json()
 
         return response
 

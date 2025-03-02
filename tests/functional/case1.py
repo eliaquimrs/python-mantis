@@ -61,6 +61,10 @@ if '__main__' in __name__:
           f'client.protocol: {client.protocol}',
           sep='\n')
 
-    lista = client.project.list()
-    print(lista)
-    print(dir(lista))
+    projects = client.project.list()
+    print(f'projects list: {projects}',
+          f'dir of first project obj: {dir(projects[0])}',
+          f'dict of first project: {projects[0].to_dict()}',
+          f'first project > second project?: {projects[0] > projects[1]}',
+          f'first project id: {projects[0]._id} vs second project id: {projects[1]._id}',
+          sep='\n')
