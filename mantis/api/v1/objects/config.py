@@ -1,5 +1,7 @@
+from mantis.base import ObjectManagerBase
 
-class ConfigManager:
+
+class ConfigManager(ObjectManagerBase):
     pass
 
 

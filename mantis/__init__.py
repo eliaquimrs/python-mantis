@@ -1,5 +1,4 @@
 import mantis
-
 from mantis.__version import (
     __author__,
     __copyright__,

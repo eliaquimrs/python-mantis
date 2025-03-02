@@ -2,9 +2,10 @@
     - attachment.py
     - note.py
 """
+from mantis.base import ObjectManagerBase
 
 
-class IssueManager:
+class IssueManager(ObjectManagerBase):
     pass
 
 

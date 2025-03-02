@@ -1,7 +1,11 @@
+# autopep8: off
 import argparse
 import json
+import sys
+sys.path.append('/home/eliaquim/Documents/individual_projects/python-mantis')
 
 import mantis
+# autopep8: on
 
 MANTIS_URL = ''
 
@@ -53,3 +57,7 @@ if '__main__' in __name__:
           f'client._base_url: {client._base_url}',
           f'client.protocol: {client.protocol}',
           sep='\n')
+
+    lista = client.project.list()
+    print(lista)
+    print(dir(lista))

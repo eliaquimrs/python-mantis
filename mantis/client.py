@@ -1,7 +1,10 @@
 """__summary__"""
 from typing import Union
+from urllib.parse import urljoin
 
-from mantis import utils
+from mantis import utils, const
+from mantis.api.v1 import objects as objects_v1
+from mantis._requests import MantisRequests
 
 
 class MantisBT:
@@ -10,7 +13,7 @@ class MantisBT:
             url: str,
             user_api_token: str,
             timeout: Union[str, None] = None,
-            mantis_api_version: str = ''
+            mantis_api_version: str = 'v1'
     ) -> None:
         """
         Initialize a new MantisBT API client.
@@ -25,9 +28,29 @@ class MantisBT:
         self._server_protocol, self._url_information, self._base_url = \
             utils.mantis_url_parse(url)
         self._auth = user_api_token
-
         self._mantis_api_version = mantis_api_version
+
         self.timeout = timeout
+
+        self.url = self.get_api_url()
+
+        self._requests = MantisRequests(
+            self.url, self._auth, self.timeout)
+
+        self.objects = self._get_objects_cls()
+
+        self.project = self.objects.ProjectManager(self._requests)
+        self.issue = self.objects.IssueManager(self._requests)
+        self.user = self.objects.UserManager(self._requests)
+        self.note = self.objects.NoteManager(self._requests)
+
+    def _get_objects_cls(self):
+        """Loads the objects for the current API version"""
+        if self._mantis_api_version == 'v1':
+            return objects_v1
+
+    def get_api_url(self):
+        return urljoin(self._base_url, const.API[self._mantis_api_version].PATH)
 
     @property
     def api_version(self) -> str:

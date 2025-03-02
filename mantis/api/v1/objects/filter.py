@@ -1,5 +1,7 @@
+from mantis.base import ObjectManagerBase
 
-class FilterManager:
+
+class FilterManager(ObjectManagerBase):
     pass
 
 

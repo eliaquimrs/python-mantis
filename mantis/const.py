@@ -1,21 +1,40 @@
 from enum import Enum
 
 
-class BaseStrOwnEnum(str, Enum):
+class BaseStrEnum(str, Enum):
     pass
 
 
-class REST(BaseStrOwnEnum):
-    CONTENT_TYPE_JSON = 'application/json'
+class HTTP(BaseStrEnum):
+    METHOD_GET = 'GET'
+    METHOD_POST = 'POST'
+    METHOD_PUT = 'PUT'
+    METHOD_DELETE = 'DELETE'
+    METHOD_PATCH = 'PATCH'
 
+
+class REST(BaseStrEnum):
+    HEADER_CONTENT_TYPE_JSON = 'application/json'
+    HEADER_ACCEPT = '*/*'
+    HEADER_USER_AGENT = 'python-mantis'
+    HEADER_CONNECTION_KEEP_ALIVE = 'keep-alive'
+    HEADER_CONNECTION_CLOSE = 'close'
+
+
+class API_INFO_V1(BaseStrEnum):
+    PATH = 'api/rest'
+    VERSION = 'v1'
+
+    PROJECTS_PATH = 'projects'
+
+    ISSUES_PATH = 'issues'
+
+
+API = dict(
+    v1=API_INFO_V1
+)
 
 SUPPORTED_PROTOCOLS = [
     'http',
     'https'
 ]
-
-if '__main__' in __name__:
-    from json import dumps
-
-    dict_test = {'content-type': REST.CONTENT_TYPE_JSON}
-    print(dumps(dict_test))

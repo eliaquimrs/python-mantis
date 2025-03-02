@@ -1,4 +1,7 @@
-class NoteManager:
+from mantis.base import ObjectManagerBase
+
+
+class NoteManager(ObjectManagerBase):
     pass
 
 
