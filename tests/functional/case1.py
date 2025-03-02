@@ -1,8 +1,11 @@
 # autopep8: off
 import argparse
 import json
+from os import path
 import sys
-sys.path.append('/home/eliaquim/Documents/individual_projects/python-mantis')
+
+project_path = path.join(path.abspath(__file__).rsplit(path.sep, 3)[0])
+sys.path.append(project_path)
 
 import mantis
 # autopep8: on
