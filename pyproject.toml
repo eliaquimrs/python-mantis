@@ -48,6 +48,8 @@ Homepage = "https://github.com/eliaquimrs/python-mantis"
 Changelog = "https://github.com/eliaquimrs/python-mantis/blob/master/CHANGELOG.md"
 Documentation = "https://github.com/eliaquimrs/python-mantis?tab=readme-ov-file#readme"
 Source = "https://github.com/eliaquimrs/python-mantis"
+Repository = "https://github.com/eliaquimrs/python-mantis.git"
+"Bug Tracker" = "https://github.com/eliaquimrs/python-mantis/issues"
 
 [tool.setuptools.packages.find]
 exclude = ["docs*", "tests*"]
