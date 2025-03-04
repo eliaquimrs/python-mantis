@@ -18,7 +18,9 @@ maintainers = [
     {name = "Elton Pescador", email= "eltonpescadorvieira@gmail.com"}
 ]
 requires-python = ">=3.9.0"
-dependencies = []
+dependencies = [
+    "requests>=2.32.0",
+]
 classifiers = [
     "Development Status :: 1 - Planning",
     "Environment :: Console",
