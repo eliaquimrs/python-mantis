@@ -27,7 +27,7 @@ class IssueManager(
 
     # TODO: Review mandatory and optional attributes
     _mandatory_attr = (
-        'id', 'summary', 'description' 'project', 'steps_to_reproduce')
+        'id', 'summary', 'description', 'project', 'steps_to_reproduce')
     _optional_attr = ('category', 'reporter', 'handler', 'status', 'resolution',
                       'view_state', 'priority', 'severity', 'reproducibility',
                       'platform', 'sticky', 'created_at', 'updated_at',
