@@ -39,10 +39,12 @@ class MantisBT:
 
         self.objects = self._get_objects_cls()
 
-        self.project = self.objects.ProjectManager(self._requests)
-        self.issue = self.objects.IssueManager(self._requests)
-        self.user = self.objects.UserManager(self._requests)
-        self.note = self.objects.NoteManager(self._requests)
+        self.projects = self.objects.ProjectManager(self._requests)
+        self.issues = self.objects.IssueManager(self._requests)
+        self.configs = self.objects.ConfigManager(self._requests)
+        self.filters = self.objects.FilterManager(self._requests)
+        self.notes = self.objects.NoteManager(self._requests)
+        self.users = self.objects.UserManager(self._requests)
 
     def _get_objects_cls(self):
         """Loads the objects for the current API version"""

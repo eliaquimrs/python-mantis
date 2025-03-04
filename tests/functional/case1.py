@@ -10,8 +10,6 @@ sys.path.append(project_path)
 import mantis
 # autopep8: on
 
-MANTIS_URL = ''
-
 
 def configure_args():
     parser = argparse.ArgumentParser(description='MantisBT test case 1')
@@ -54,6 +52,7 @@ if '__main__' in __name__:
     parser = configure_args()
     args = parser_args(parser)
 
+    print('### MantisBT Client Object ###')
     client = mantis.MantisBT(**args)
     print(f'client_object: {client}',
           f'client._auth: {client._auth}',
@@ -61,10 +60,29 @@ if '__main__' in __name__:
           f'client.protocol: {client.protocol}',
           sep='\n')
 
-    projects = client.project.list()
+    print('\n\n\n### Projects ###')
+    projects = client.projects.get_all()
     print(f'projects list: {projects}',
           f'dir of first project obj: {dir(projects[0])}',
           f'dict of first project: {projects[0].to_dict()}',
           f'first project > second project?: {projects[0] > projects[1]}',
           f'first project id: {projects[0]._id} vs second project id: {projects[1]._id}',
+          sep='\n')
+
+    print('\n\n\n### Issues ###')
+    issues = projects[0].get_issues()
+    print(f'issues list: {issues}',
+          f'dir of first issue obj: {dir(issues[0])}',
+          f'dict of first issue: {issues[0].to_dict()}',
+          f'first issue > second issue?: {issues[0] > issues[1]}',
+          f'first issue id: {issues[0]._id} vs second issue id: {issues[1]._id}',
+          sep='\n')
+
+    print('\n\n\n### Notes ###')
+    notes = issues[0].get_notes()
+    print(f'notes list: {notes}',
+          f'dir of first note obj: {dir(notes[0])}',
+          f'dict of first note: {notes[0].to_dict()}',
+          f'first note > second note?: {notes[0] > notes[1]}',
+          f'first note id: {notes[0]._id} vs second note id: {notes[1]._id}',
           sep='\n')
