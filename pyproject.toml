@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "python-mantis"
 version = "{{VERSION_PLACEHOLDER}}"
 description="A python interface to manage everything about Mantis Bug Tracker"
-readme = "README.rst"
+readme = "README.md"
 authors = [
     {name = "Eliaquim Souza", email= "eliaquim.rsv@gmail.com"},
     {name = "Rafael Silva", email= "rafael.alexandre.tm@gmail.com"},
