@@ -25,6 +25,7 @@ class ProjectManager(
     _path = 'projects'
     _id_attr = 'id'
     _key_response = ('projects', )
+    # TODO: Review mandatory, optional and readonly attributes
     _mandatory_attr = ('id', 'name', 'enabled')
     _optional_attr = (
         'status', 'description', 'view_state', 'categories', 'inherit_global',

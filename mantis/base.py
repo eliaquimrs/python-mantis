@@ -9,6 +9,20 @@ from mantis._requests.mantis_requests import MantisRequests
 __all__ = ['ObjectBase', 'ObjectManagerBase']
 
 
+# LIST of TODOs:
+# TODO: Create logic to mapping fields updated in the object, to be used in the `save()` method
+
+# TODO: Implemento convertion of attributes value in specific types (e.g: date, datetime, etc)
+#       e.g: `created_at` attribute is a string, but should be a datetime object
+
+# TODO: Implement a way to has multiple childs. e.g: In NoteObj we have a attribute called `reporter` this attribute should be a `UserObj` object
+
+# TODO: Implement a class to manage list of responses(iterable). Implementing methods to:
+#   - Get the next object
+#   - Get the previous object
+#   - Methods to filter the list of objects
+#   - Methods to sort the list of objects
+
 class ObjectBase:
     """A generic class to represent a object from Mantis.
     Use this class to create a object representation of a Mantis object.

@@ -17,7 +17,7 @@ class NoteManager(
     _id_attr = 'id'
     _key_response = ('issues', 0, 'notes')
 
-    # TODO: Review mandatory and optional attributes
+    # TODO: Review mandatory, optional and readonly attributes
     _mandatory_attr = ('id', 'text')
     _optional_attr = ('reporter', 'view_state', 'attachments', 'type',
                       'created_at', 'updated_at')

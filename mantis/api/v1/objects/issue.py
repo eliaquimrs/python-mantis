@@ -25,7 +25,7 @@ class IssueManager(
     _id_attr = 'id'
     _key_response = ('issues', )
 
-    # TODO: Review mandatory and optional attributes
+    # TODO: Review mandatory, optional and readonly attributes
     _mandatory_attr = (
         'id', 'summary', 'description', 'project', 'steps_to_reproduce')
     _optional_attr = ('category', 'reporter', 'handler', 'status', 'resolution',

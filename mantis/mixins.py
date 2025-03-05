@@ -3,6 +3,28 @@ from typing import Any, List
 from mantis.base import ObjectManagerBase, ObjectBase
 
 
+# TODO: Add support for pagination (limit of response)
+
+# TODO: Add refresh method
+#       1. Implement a method called `refresh` that will get new data from the server (method used in ObjectBase)
+
+# TODO: Add support for update:
+#       update_many (?)
+#       update_one:
+#       1. Mapping atrributes updated in the object (implement in ObjectBase?)
+#       2. Implement a method called `save` that will update the object in the server
+#       3. Call the method  `refresh` to get new data from the server ()
+
+# TODO: Add support for delete
+#    delete_many (?)
+#    delete_one (?)
+
+# TODO: Add support for create
+#    - Create object in the server
+#    - mandatory, optional and read-only fields must be used to create the object
+#    - Default values to optional fields is necessary?
+#    - Implement a method called `create` that will create the object in the server
+
 class GetMixins(ObjectManagerBase):
     def _get(
         self,
@@ -15,6 +37,7 @@ class GetMixins(ObjectManagerBase):
             if params:
                 params.update(self._fixed_criteria)
             else:
+                # TODO: Use deepcopy
                 params = self._fixed_criteria
 
         response = self.request.http_get(url, params)
