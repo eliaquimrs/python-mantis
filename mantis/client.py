@@ -8,6 +8,34 @@ from mantis._requests import MantisRequests
 
 
 class MantisBT:
+    """A client for interacting with the MantisBT API.
+
+    Attributes:
+        _base_url (str): Base URL of the MantisBT instance.
+        _requests (MantisRequests): Instance of MantisRequests for making API calls.
+
+        timeout (Union[str, None]): Request timeout value.
+        url (str): Full API URL.
+        api_version (str): Version of MantisBT API being used.
+        protocol (str): Protocol used to communicate with the MantisBT server.
+
+        objects (module): Loaded objects for the current API version.
+        projects (ProjectManager): Manager for project-related operations.
+        issues (IssueManager): Manager for issue-related operations.
+        configs (ConfigManager): Manager for configuration-related operations.
+        filters (FilterManager): Manager for filter-related operations.
+        notes (NoteManager): Manager for note-related operations.
+        users (UserManager): Manager for user-related operations.
+
+    Methods:
+        __init__(url, user_api_token, timeout=None, mantis_api_version='v1'):
+            Initialize a new MantisBT API client.
+        get_api_url():
+            Constructs and returns the full API URL.
+        enable_debug(hide_credencials=True) -> None:
+            Enables debug logging.
+    """
+
     def __init__(
             self,
             url: str,
@@ -47,11 +75,20 @@ class MantisBT:
         self.users = self.objects.UserManager(self._requests)
 
     def _get_objects_cls(self):
-        """Loads the objects for the current API version"""
+        """Get the objects module for the current API version.
+
+        Returns:
+            API objects module: API module for the current API version
+        """
         if self._mantis_api_version == 'v1':
             return objects_v1
 
     def get_api_url(self):
+        """Get full URL of the MantisBT API (including mantis version).
+
+        Returns:
+            str: Full URL of the MantisBT API
+        """
         return urljoin(self._base_url, const.API[self._mantis_api_version].PATH)
 
     @property
@@ -64,6 +101,7 @@ class MantisBT:
         """Returns the protocol used to communication with mantis server"""
         return self._server_protocol
 
+    # TODO: Implement this method
     def enable_debug(self, hide_credencials: bool = True) -> None:
         """Enables debug logging"""
         pass

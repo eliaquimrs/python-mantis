@@ -86,3 +86,12 @@ if '__main__' in __name__:
           f'first note > second note?: {notes[0] > notes[1]}',
           f'first note id: {notes[0]._id} vs second note id: {notes[1]._id}',
           sep='\n')
+
+    original_note = notes[0]
+
+    fake_note = client.notes._obj_cls(
+        client.notes, {'id': original_note._id, 'text': 'fake note'})
+    print(f'fake note in notes? {fake_note in notes}',
+          f'original_note hash_string: {original_note._hash_string()}',
+          f'fake_note hash_string    : {fake_note._hash_string()}',
+          sep='\n')

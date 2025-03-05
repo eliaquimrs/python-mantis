@@ -1,6 +1,16 @@
 """_summary_"""
 
-__all__ = ['UnsupportedProtocolError']
+__all__ = [
+    'MantisGenericError',
+    'UnsupportedProtocolError',
+    'MantisHTTPError',
+    'MantisHTTPReponseClientError',
+    'MantisHTTPReponseServerError',
+    'MantisHTTPConnError',
+    'MantisConnectionError',
+    'MantisConnectionTimeout',
+    'MantisReadTimeout'
+]
 
 from typing import Any
 
