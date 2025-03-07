@@ -8,6 +8,7 @@ from mantis.mixins import (
     GetByCriteriaMixins
 )
 from .note import NoteManager
+from typing import Any
 
 
 class IssueObj(ObjectBase):
@@ -15,6 +16,10 @@ class IssueObj(ObjectBase):
 
     def get_notes(self):
         return self.manager._child_manager_obj.get_by_crit({'id': self.id}, self)
+    # TODO: Add method to update issue status
+    # TODO: Add method to add/update tags
+    # TODO: Add method to monitor/unmonitor issue
+    # TODO: Add method to assign issue to user
 
 
 class IssueManager(
@@ -46,3 +51,12 @@ class IssueManager(
                    'severity,reproducibility,platform,sticky,created_at,'
                    'updated_at,custom_fields,history')
     }
+
+    # TODO: Add function to get issues by project ID/name
+    # TODO: Add function to get issues assigned to current user
+    # TODO: Add function to get monitored issues (by current user)
+    # TODO: Add function to get issues by status (open, closed, resolved etc)
+    # TODO: Add function to get issues by priority level
+    # TODO: Add function to get issues by severity level
+    # TODO: Add function to get issues by category
+    # TODO: Add function to get issues created within date range

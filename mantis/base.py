@@ -12,16 +12,10 @@ __all__ = ['ObjectBase', 'ObjectManagerBase']
 # LIST of TODOs:
 # TODO: Create logic to mapping fields updated in the object, to be used in the `save()` method
 
-# TODO: Implemento convertion of attributes value in specific types (e.g: date, datetime, etc)
+# TODO: Implement convertion of attributes value in specific types (e.g: date, datetime, etc)
 #       e.g: `created_at` attribute is a string, but should be a datetime object
 
 # TODO: Implement a way to has multiple childs. e.g: In NoteObj we have a attribute called `reporter` this attribute should be a `UserObj` object
-
-# TODO: Implement a class to manage list of responses(iterable). Implementing methods to:
-#   - Get the next object
-#   - Get the previous object
-#   - Methods to filter the list of objects
-#   - Methods to sort the list of objects
 
 class ObjectBase:
     """A generic class to represent a object from Mantis.
@@ -346,3 +340,119 @@ class ObjectManagerBase(Generic[TObjBaseClass]):
 
 
 TObjManagerClass = TypeVar('TObjManagerClass', bound=ObjectManagerBase)
+
+
+class ObjectListManager:
+    """A class to manage lists of Mantis objects with iteration, filtering and sorting capabilities."""
+
+    def __init__(self, objects: List[ObjectBase]):
+        """Initialize with list of objects.
+
+        Args:
+            objects (List[ObjectBase]): List of Mantis objects to manage
+        """
+        self.objects = objects
+        self.current_index = -1
+
+    def __iter__(self):
+        """Make class iterable."""
+        return self
+
+    def __next__(self) -> ObjectBase:
+        """Get next object in list.
+
+        Returns:
+            ObjectBase: Next object in sequence
+
+        Raises:
+            StopIteration: When end of list is reached
+        """
+        self.current_index += 1
+        if self.current_index >= len(self.objects):
+            self.current_index = -1
+            raise StopIteration
+        return self.objects[self.current_index]
+
+    def next(self) -> Union[ObjectBase, None]:
+        """Get next object without raising StopIteration.
+
+        Returns:
+            Union[ObjectBase, None]: Next object or None if at end
+        """
+        try:
+            return next(self)
+        except StopIteration:
+            return None
+
+    def previous(self) -> Union[ObjectBase, None]:
+        """Get previous object in list.
+
+        Returns:
+            Union[ObjectBase, None]: Previous object or None if at start
+        """
+        if self.current_index > 0:
+            self.current_index -= 1
+            return self.objects[self.current_index]
+        return None
+
+    # TODO: Predict more condition: e.g contains(in), !=, ==, etc
+    def filter(self, *args) -> ObjectListManager:
+        """Filter objects by attribute values.
+
+        Args:
+            **kwargs: Attribute names and values to filter by
+
+        Returns:
+            ObjectListManager: New manager with filtered objects
+        """
+        filtered = []
+        for obj in self.objects:
+            matches = True
+            for key, value in kwargs.items():
+                if obj.get(key) != value:
+                    matches = False
+                    break
+            if matches:
+                filtered.append(obj)
+        return ObjectListManager(filtered)
+
+    def sort(self, key: str, reverse: bool = False) -> ObjectListManager:
+        """Sort objects by an attribute.
+
+        Args:
+            key (str): Attribute name to sort by
+            reverse (bool): Sort in reverse order if True
+
+        Returns:
+            ObjectListManager: New manager with sorted objects
+        """
+        sorted_objects = sorted(
+            self.objects,
+            key=lambda x: x.get(key),
+            reverse=reverse
+        )
+        return ObjectListManager(sorted_objects)
+
+    def __len__(self) -> int:
+        """Get number of objects in list."""
+        return len(self.objects)
+
+    def __getitem__(self, index: int) -> ObjectBase:
+        """Get object at index."""
+        return self.objects[index]
+
+    def __repr__(self) -> str:
+        """Return string representation of the list manager.
+
+        Returns:
+            str: String showing number of objects and current index
+        """
+        return f"ObjectListManager(objects={len(self.objects)}, current_index={self.current_index})"
+
+    def __str__(self) -> str:
+        """Return string representation showing all objects.
+
+        Returns:
+            str: String listing all managed objects
+        """
+        return "ObjectListManager%s" % self.objects

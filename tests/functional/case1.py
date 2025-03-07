@@ -62,7 +62,11 @@ if '__main__' in __name__:
 
     print('\n\n\n### Projects ###')
     projects = client.projects.get_all()
+    print('FOR LOG OVER PROJECTS LIST')
+    for project in projects:
+        print(f'    - {project}')
     print(f'projects list: {projects}',
+          f'projects sorted by name: {projects.sort(key="name")}',
           f'dir of first project obj: {dir(projects[0])}',
           f'dict of first project: {projects[0].to_dict()}',
           f'first project > second project?: {projects[0] > projects[1]}',

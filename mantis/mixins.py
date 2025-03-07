@@ -6,7 +6,7 @@ This module provides mixin classes that implement common functionality for objec
 from copy import deepcopy
 from typing import Any, List
 
-from mantis.base import ObjectManagerBase, ObjectBase
+from mantis.base import ObjectManagerBase, ObjectBase, ObjectListManager
 
 
 # TODO: Add support for pagination (limit of response)
@@ -82,7 +82,7 @@ class GetMixins(ObjectManagerBase):
 
             obj_list.append(obj)
 
-        return obj_list
+        return ObjectListManager(obj_list)
 
     def get_all(self, _parent: ObjectBase = None) -> List[ObjectBase]:
         """Retrieves all objects from the server for this manager's path.
