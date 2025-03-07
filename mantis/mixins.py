@@ -82,19 +82,6 @@ class GetMixins(ObjectManagerBase):
 
             obj_list.append(obj)
 
-    def get_by_id(self, id_: Any, use_cache=True, _parent=None) -> ObjectBase:
-        if use_cache:
-            obj = self._get_object_from_cache(id_)
-            if obj:
-                print('Using object from cache')
-                if _parent and not obj._parent:
-                    obj._parent = _parent
-                return obj
-
-            print('obj not found in cache')
-
-        return self._get(f'{self._path}/{id_}', _parent=_parent)[0]
-
         return obj_list
 
     def get_all(self, _parent: ObjectBase = None) -> List[ObjectBase]:
@@ -127,12 +114,9 @@ class GetMixins(ObjectManagerBase):
         if use_cache:
             obj = self._get_object_from_cache(id_)
             if obj:
-                print('Using object from cache')
                 if _parent and not obj._parent:
                     obj._parent = _parent
                 return obj
-
-            print('obj not found in cache')
 
         return self._get(f'{self._path}/{id_}', _parent=_parent)[0]
 
