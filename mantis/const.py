@@ -1,3 +1,4 @@
+from operator import contains, eq, ne, ge, gt, lt, le
 from enum import Enum
 
 
@@ -47,3 +48,31 @@ SUPPORTED_PROTOCOLS = [
     'http',
     'https'
 ]
+
+
+def not_contains(x, y): return not contains(x, y)
+
+
+OPERATORS_MAP = {
+    'contains': contains,
+    'in': contains,
+    'not contains': not_contains,
+    'not in': not_contains,
+    'eq': eq,
+    '==': eq,
+    '!=': ne,
+    'ne': ne,
+    '>=': ge,
+    'ge': ge,
+    '>': gt,
+    'gt': gt,
+    '<': lt,
+    'lt': lt,
+    '<=': le,
+    'le': le
+}
+
+CONDITIONS_MAP = {
+    "or": any,
+    "and": all
+}

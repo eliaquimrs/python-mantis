@@ -1,10 +1,10 @@
 from __future__ import annotations
 
 import operator
-from typing import TypeVar, Generic, Any, Union, List, Set
+from typing import TypeVar, Generic, Any, Union, List, Set, Literal, Tuple
 
 from mantis._requests.mantis_requests import MantisRequests
-
+from mantis.utils import filter_objects
 
 __all__ = ['ObjectBase', 'ObjectManagerBase']
 
@@ -395,26 +395,32 @@ class ObjectListManager:
             return self.objects[self.current_index]
         return None
 
-    # TODO: Predict more condition: e.g contains(in), !=, ==, etc
-    def filter(self, *args) -> ObjectListManager:
-        """Filter objects by attribute values.
+    def filter(
+        self,
+        *args: Union[List[Any], Tuple[Any]],
+        main_condition: Literal['and', 'or'] = 'and'
+    ) -> ObjectListManager:
+        """Filter objects by conditions.
 
         Args:
-            **kwargs: Attribute names and values to filter by
+            *args (Union[List[Any], Tuple[Any]]): List of conditions to filter.
+                List or tuple with 3 values:
+                    <left-condition value>, <operator>, <right-condition value>
+
+                Use breckets to access the obj to filter, e.g: {obj.name}
+                e.gs:
+                    - ('Project', 'in', '{obj.name}')
+                    - ('{obj.id}', '>', 28), ('{obj.name}', '==', 'CWMV')
+                    - ('{obj.name}', 'contains', '{obj.age}'), ('{obj.age}', '>', 25)
+            main_condition (Literal['and', 'or'], optional): Main condition to
+                use in the filter. Use `and`/`or`.  default is 'and'.
 
         Returns:
-            ObjectListManager: New manager with filtered objects
-        """
-        filtered = []
-        for obj in self.objects:
-            matches = True
-            for key, value in kwargs.items():
-                if obj.get(key) != value:
-                    matches = False
-                    break
-            if matches:
-                filtered.append(obj)
-        return ObjectListManager(filtered)
+            ObjectListManager: New ListManager with filtered objects"""
+
+        return ObjectListManager(
+            filter_objects(self.objects, args, main_condition)
+        )
 
     def sort(self, key: str, reverse: bool = False) -> ObjectListManager:
         """Sort objects by an attribute.
@@ -447,7 +453,8 @@ class ObjectListManager:
         Returns:
             str: String showing number of objects and current index
         """
-        return f"ObjectListManager(objects={len(self.objects)}, current_index={self.current_index})"
+        return self.__str__()
+        # return f"ObjectListManager(objects={len(self.objects)}, current_index={self.current_index})"
 
     def __str__(self) -> str:
         """Return string representation showing all objects.
