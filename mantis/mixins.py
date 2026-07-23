@@ -63,6 +63,11 @@ class GetMixins(ObjectManagerBase):
             for key in self._key_response:
                 if isinstance(response, dict):
                     response = response.get(key, [])
+                elif isinstance(response, list) and isinstance(key, int):
+                    if key < len(response):
+                        response = response[key]
+                    else:
+                        return []
                 else:
                     break
                 if not response:
