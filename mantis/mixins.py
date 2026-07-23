@@ -61,7 +61,10 @@ class GetMixins(ObjectManagerBase):
 
         if self._key_response is not None:
             for key in self._key_response:
-                response = response.get(key, [])
+                if isinstance(response, dict):
+                    response = response.get(key, [])
+                else:
+                    break
                 if not response:
                     return []
 
