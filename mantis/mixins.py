@@ -59,12 +59,19 @@ class GetMixins(ObjectManagerBase):
 
         response = self.request.http_get(url, params)
 
-        # If the object manager has a tuple of key response, we'll get
-        #   the response recursivally.
-        # TODO: Predict a exception for empty response or similar
         if self._key_response is not None:
             for key in self._key_response:
-                response = response[key]
+                if isinstance(response, dict):
+                    response = response.get(key, [])
+                elif isinstance(response, list) and isinstance(key, int):
+                    if key < len(response):
+                        response = response[key]
+                    else:
+                        return []
+                else:
+                    break
+                if not response:
+                    return []
 
         obj_list = []
         for obj_dict in response:
