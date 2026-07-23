@@ -1,8 +1,8 @@
 """__summary__"""
 from typing import Union
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
-from mantis import utils, const
+from mantis import const
 from mantis.api.v1 import objects as objects_v1
 from mantis._requests import MantisRequests
 
@@ -53,8 +53,8 @@ class MantisBT:
             mantis_api_version: Version of MantisBT API to use (optional)
         """
         self._url = url
-        self._server_protocol, self._url_information, self._base_url = \
-            utils.mantis_url_parse(url)
+        self._base_url = url.rstrip('/') + '/'
+        self._server_protocol = urlparse(url).scheme
         self._auth = user_api_token
         self._mantis_api_version = mantis_api_version
 
